@@ -1,7 +1,6 @@
 #include <iostream>
 #include <time.h>
 #include<stdlib.h>  
-//#include<MMSystem.h>  
 #include <string>
 #include <math.h>
 #include <windows.h>
@@ -9,20 +8,6 @@ void cambiarcolor(int color)
 {
 	SetConsoleTextAttribute(GetStdHandle (STD_OUTPUT_HANDLE), color);
 }
-
-void sonidito(int sonido)
-{
-	
-	//if(sonido==1)
-	//{
-	//PlaySound(TEXT(".wav"), NULL, SND_SYNC)
-	//}
-	//else if(sonido==2)
-	//{
-	//PlaySound(TEXT(".wav"), NULL, SND_SYNC)	
-	//}
-}
-
 
  void gotoxy(int x,int y){  
       HANDLE hcon;  
@@ -48,7 +33,6 @@ void ganar2();
 void revisar1();
 void revisar2();
 void turno3();
-void turno4();
 void empate();
 
 
