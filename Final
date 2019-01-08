@@ -1,0 +1,1195 @@
+#include <iostream>
+#include <time.h>
+#include<stdlib.h>  
+//#include<MMSystem.h>  
+#include <string>
+#include <math.h>
+#include <windows.h>
+void cambiarcolor(int color)
+{
+	SetConsoleTextAttribute(GetStdHandle (STD_OUTPUT_HANDLE), color);
+}
+
+void sonidito(int sonido)
+{
+	
+	//if(sonido==1)
+	//{
+	//PlaySound(TEXT(".wav"), NULL, SND_SYNC)
+	//}
+	//else if(sonido==2)
+	//{
+	//PlaySound(TEXT(".wav"), NULL, SND_SYNC)	
+	//}
+}
+
+
+ void gotoxy(int x,int y){  
+      HANDLE hcon;  
+      hcon = GetStdHandle(STD_OUTPUT_HANDLE);  
+      COORD dwPos;  
+      dwPos.X = x;  
+      dwPos.Y= y;  
+      SetConsoleCursorPosition(hcon,dwPos);  
+ }  
+ 
+
+char x[7][6];
+int aux=0;
+int dif=0;
+int limite=0;
+
+void turno1();
+void turno2();
+void inicio1();
+
+void ganar1();
+void ganar2();
+void revisar1();
+void revisar2();
+void turno3();
+void turno4();
+void empate();
+
+
+
+using namespace std;
+int main()
+{
+	system("cls");
+	
+	int menu=1, menu2;
+	
+	
+	while(menu>0)
+	{
+	gotoxy(50,0);
+	cout<<"CONECTA 4";
+	gotoxy(2,1);
+	cout<<"Modos de juego: ";
+		
+	gotoxy(2,3);
+	cout<<"Player vs Player [1]";
+	gotoxy(2,5);
+	cout<<"Player vs CPU (Facil) [2] \n";
+	
+	gotoxy(2,7);
+	cout<<"Player vs CPU (Medio) [3] \n";
+	
+	gotoxy(2,9);
+	cout<<"Player vs CPU (Dificil) [4] \n";
+	
+	gotoxy(2,11);
+	cout<<"Salir [5] \n";
+	
+	gotoxy(17,1);
+	cin>>(menu2);
+	switch(menu2)
+		{
+		case 1:
+				system("cls");	
+				aux=1;
+				inicio1();
+				
+			break;
+			
+		case 2:
+			
+				system("cls");	
+				aux=2;
+				dif=0;
+				inicio1();	
+			
+			break;
+			
+		case 3:
+			system("cls");	
+				aux=2;
+				dif=1;
+				inicio1();	
+			
+			break;	
+		
+		case 4:
+			system("cls");	
+				aux=2;
+				dif=2;
+				inicio1();	
+			
+			break;
+			
+		case 5:
+			system("cls");
+			cout<<"Cerrando progama...";
+			Sleep(1000);
+			exit(-1);
+			break;	
+		}			
+		
+	}
+
+	
+}
+
+void inicio1()
+{
+	system("cls");
+	
+	limite=0;
+	
+	for (int i=0;i<7;i++)
+	{
+		
+		for(int k=0;k<6;k++)
+		{		//Horizontal-Vertical	
+		 x[i][k]=' ';
+		}
+	}
+	
+	
+	gotoxy(25,2);
+	cout<<" 0   1   2   3   4   5   6";
+	
+	
+	for (int i=0;i<7;i++)
+	{
+		
+		for(int k=0;k<6;k++)
+		{		//Horizontal-Vertical
+			gotoxy(25+(i*4) , 3+(k*3));
+			
+			
+		cout<<"["<< x[i][k] <<"] \t";
+		
+		}
+		cout<<endl;
+	}
+	
+	turno1();
+	
+}
+
+void turno1()
+{
+	int mov1;
+	
+	limite++;
+	
+	gotoxy(25,2);
+	cout<<" 0   1   2   3   4   5   6";
+	
+	
+	
+	
+	
+	for (int i=0;i<7;i++)
+	{
+		
+		for(int k=0;k<6;k++)
+		{		//Horizontal-Vertical
+			gotoxy(25+(i*4) , 3+(k*3));
+			
+			
+		if(x[i][k]==' ')
+		{
+			
+		cout<<"["<< x[i][k] <<"] \t";
+		
+		}
+		else if(x[i][k]=='X')
+		{
+		cambiarcolor(6);
+		cout<<"["<< x[i][k] <<"] \t";	
+		cambiarcolor(7);
+		}
+		else if(x[i][k]=='O')
+		{
+		cambiarcolor(4);
+		cout<<"["<< x[i][k] <<"] \t";	
+		cambiarcolor(7);
+		}
+		else
+		{
+		}
+		
+		}
+		cout<<endl;
+	}
+		
+		
+	
+		gotoxy(27,24);
+		cout<<"Movimiento Jugador 1: ";
+		gotoxy(48,24);
+		
+		cin>>mov1;
+		
+		//Checar que sea 0-6
+		
+		
+		for(int p=0;p<7;p++)
+		{   
+		
+		
+		
+			if((mov1)==p)
+			{
+				for(int w=5;w>=0;w--)
+				{
+					if(x[p][w]==' ')
+					{
+						x[p][w]='X';
+						revisar1();
+					}
+					else
+					{
+						
+					}
+					
+					
+				}
+			}
+			
+			else
+			{
+				
+			}
+			
+		}
+		
+	if(aux==1)
+	{
+		turno2();
+	}
+	else if(aux==2)
+	{
+		turno3();
+	}	
+	
+}
+
+void turno2()
+{
+	int mov2;
+	
+	limite++;
+	gotoxy(25,2);
+	cout<<" 0   1   2   3   4   5   6";
+	
+	
+	for (int i=0;i<7;i++)
+	{
+		
+		for(int k=0;k<6;k++)
+		{		//Horizontal-Vertical
+			gotoxy(25+(i*4) , 3+(k*3));
+			
+			
+		if(x[i][k]==' ')
+		{
+			
+		cout<<"["<< x[i][k] <<"] \t";
+		
+		}
+		else if(x[i][k]=='X')
+		{
+		cambiarcolor(6);
+		cout<<"["<< x[i][k] <<"] \t";	
+		cambiarcolor(7);
+		}
+		else if(x[i][k]=='O')
+		{
+		cambiarcolor(4);
+		cout<<"["<< x[i][k] <<"] \t";	
+		cambiarcolor(7);
+		}
+		else
+		{
+		}
+		
+		
+		}
+		cout<<endl;
+	}
+	
+	
+		gotoxy(27,24);
+		cout<<"Movimiento Jugador 2: ";
+		gotoxy(48,24);
+		
+		cin>>mov2;
+		
+		//Checar que sea 0-6
+		
+		for(int p=0;p<7;p++)
+		{   
+		
+			if((mov2)==p)
+			{
+				for(int w=5;w>=0;w--)
+				{
+					if(x[p][w]==' ')
+					{
+						x[p][w]='O';
+						revisar2();
+					}
+					else
+					{
+						
+					}
+					
+					
+				}
+			}
+			
+			else
+			{
+				
+			}
+			
+		}
+		
+		turno1();
+	
+}
+
+
+void ganar1()
+{
+	
+	gotoxy(25,2);
+	cout<<" 0   1   2   3   4   5   6";
+	
+	
+	for (int i=0;i<7;i++)
+	{
+		
+		for(int k=0;k<6;k++)
+		{		//Horizontal-Vertical
+			gotoxy(25+(i*4) , 3+(k*3));
+			
+			
+		if(x[i][k]==' ')
+		{
+			
+		cout<<"["<< x[i][k] <<"] \t";
+		
+		}
+		else if(x[i][k]=='X')
+		{
+		cambiarcolor(6);
+		cout<<"["<< x[i][k] <<"] \t";	
+		cambiarcolor(7);
+		}
+		else if(x[i][k]=='O')
+		{
+		cambiarcolor(4);
+		cout<<"["<< x[i][k] <<"] \t";	
+		cambiarcolor(7);
+		}
+		else
+		{
+		}
+		
+		
+		}
+		cout<<endl;
+	}
+	
+	
+	gotoxy(70,15);
+	cout<<"#1 ganador";
+	
+	
+	Sleep(5000);
+	
+	int u;
+	system("cls");
+	
+	gotoxy(50,10);
+	cout<<"#1 ganador";
+	
+	gotoxy(40,17);
+	cout<<"-Presiona 1 para jugar de nuevo ";
+	gotoxy(40,18);
+	cout<<"-Presiona 2 para regresar al menu ";
+	gotoxy(53,20);
+	cin>>u;
+	
+	
+	if(u==1)
+	{
+		inicio1();
+	}
+	else if (u==2)
+	{
+		main();
+	}
+	else
+	{
+		
+	}
+	
+	
+}
+
+void ganar2()
+{
+	
+	gotoxy(25,2);
+	cout<<" 0   1   2   3   4   5   6";
+	
+	
+	for (int i=0;i<7;i++)
+	{
+		
+		for(int k=0;k<6;k++)
+		{		//Horizontal-Vertical
+			gotoxy(25+(i*4) , 3+(k*3));
+			
+			
+		if(x[i][k]==' ')
+		{
+			
+		cout<<"["<< x[i][k] <<"] \t";
+		
+		}
+		else if(x[i][k]=='X')
+		{
+		cambiarcolor(6);
+		cout<<"["<< x[i][k] <<"] \t";	
+		cambiarcolor(7);
+		}
+		else if(x[i][k]=='O')
+		{
+		cambiarcolor(4);
+		cout<<"["<< x[i][k] <<"] \t";	
+		cambiarcolor(7);
+		}
+		else
+		{
+		}
+		
+		
+		}
+		cout<<endl;
+	}
+	
+	
+	if(aux==1)
+	{
+	gotoxy(70,15);
+	cout<<"#2 ganador";
+	}
+	else
+	{
+	gotoxy(70,15);
+	cout<<"Perdiste";	
+	}
+	
+	Sleep(5000);
+	
+	
+	int u;
+	system("cls");
+	
+	if(aux==1)
+	{
+	gotoxy(50,10);
+	cout<<"#2 ganador";
+	}
+	else
+	{
+	gotoxy(50,10);
+	cout<<"Perdiste";	
+	}
+	
+	gotoxy(40,17);
+	cout<<"-Presiona 1 para jugar de nuevo ";
+	gotoxy(40,18);
+	cout<<"-Presiona 2 para regresar al menu ";
+	gotoxy(53,20);
+	cin>>u;
+	
+	
+	if(u==1)
+	{
+		inicio1();
+	}
+	else if (u==2)
+	{
+		main();
+	}
+	else
+	{
+		
+	}
+
+	
+}
+
+void revisar1()
+{
+	int lleno=0;
+	
+	for(int i=0;i<7;i++)
+	{
+		for(int k=5;k>=0;k--)
+		{
+			        //Horizontal
+			if(x[i][k]=='X' & x[i+1][k]=='X' & x[i+2][k]=='X' & x[i+3][k]=='X')
+			{
+				ganar1();
+			}
+			else if(x[i][k]=='O' & x[i+1][k]=='O' & x[i+2][k]=='O' & x[i+3][k]=='O')
+			{
+				ganar2();
+			}
+					//Vertical
+			else if(x[i][k]=='X' & x[i][k-1]=='X' & x[i][k-2]=='X' & x[i][k-3]=='X')
+			{
+				ganar1();
+			}
+			else if (x[i][k]=='O' & x[i][k-1]=='O' & x[i][k-2]=='O' & x[i][k-3]=='O')
+			{
+				ganar2();
+			}
+					//Diagonal
+			else if(x[i][k]=='X' & x[i+1][k-1]=='X' & x[i+2][k-2]=='X' & x[i+3][k-3]=='X')
+			{
+				ganar1();
+			}
+			else if(x[i][k]=='O' & x[i+1][k-1]=='O' & x[i+2][k-2]=='O' & x[i+3][k-3]=='O')
+			{
+				ganar2();	
+			}
+			 //Diagonal
+			else if(x[i][k]=='X' & x[i-1][k-1]=='X' & x[i-2][k-2]=='X' & x[i-3][k-3]=='X')
+			{
+				ganar1();
+			}
+			else if(x[i][k]=='O' & x[i-1][k-1]=='O' & x[i-2][k-2]=='O' & x[i-3][k-3]=='O')
+			{
+				ganar2();
+			}
+			
+			//empate
+			else if(limite==42)
+			{
+				
+				empate();
+				
+			}
+			else
+			{
+				
+			}
+		}	
+	}
+	
+	
+	if(aux==1)
+	{
+		turno2();
+	}
+	else if(aux==2)
+	{
+		turno3();
+	}
+	
+	
+}
+
+void revisar2()
+{
+	int	lleno=0;
+	
+	for(int i=0;i<7;i++)
+	{
+		for(int k=5;k>=0;k--)
+		{
+			
+			if(x[i][k]=='X' & x[i+1][k]=='X' & x[i+2][k]=='X' & x[i+3][k]=='X')
+			{
+				ganar1();
+			}
+			else if(x[i][k]=='O' & x[i+1][k]=='O' & x[i+2][k]=='O' & x[i+3][k]=='O')
+			{
+				ganar2();
+			}
+			else if(x[i][k]=='X' & x[i][k-1]=='X' & x[i][k-2]=='X' & x[i][k-3]=='X')
+			{
+				ganar1();
+			}
+			else if (x[i][k]=='O' & x[i][k-1]=='O' & x[i][k-2]=='O' & x[i][k-3]=='O')
+			{
+				ganar2();
+			}
+			else if(x[i][k]=='X' & x[i+1][k-1]=='X' & x[i+2][k-2]=='X' & x[i+3][k-3]=='X')
+			{
+				ganar1();
+			}
+			else if(x[i][k]=='O' & x[i+1][k-1]=='O' & x[i+2][k-2]=='O' & x[i+3][k-3]=='O')
+			{
+				ganar2();	
+			}
+			else if(x[i][k]=='X' & x[i-1][k-1]=='X' & x[i-2][k-2]=='X' & x[i-3][k-3]=='X')
+			{
+				ganar1();
+			}
+			else if(x[i][k]=='O' & x[i-1][k-1]=='O' & x[i-2][k-2]=='O' & x[i-3][k-3]=='O')
+			{
+				ganar2();
+			}
+			else if(limite==42)
+			{
+				
+				empate();
+				
+			}
+			else
+			{
+			}
+		}	
+	}
+	
+	
+	
+	turno1();
+	
+}
+
+void empate()
+{
+	
+		gotoxy(25,2);
+	cout<<" 0   1   2   3   4   5   6";
+	
+	
+	for (int i=0;i<7;i++)
+	{
+		
+		for(int k=0;k<6;k++)
+		{		//Horizontal-Vertical
+			gotoxy(25+(i*4) , 3+(k*3));
+			
+			
+		if(x[i][k]==' ')
+		{
+			
+		cout<<"["<< x[i][k] <<"] \t";
+		
+		}
+		else if(x[i][k]=='X')
+		{
+		cambiarcolor(6);
+		cout<<"["<< x[i][k] <<"] \t";	
+		cambiarcolor(7);
+		}
+		else if(x[i][k]=='O')
+		{
+		cambiarcolor(4);
+		cout<<"["<< x[i][k] <<"] \t";	
+		cambiarcolor(7);
+		}
+		else
+		{
+		}
+		
+		
+		}
+		cout<<endl;
+	}
+	
+	
+	gotoxy(70,15);
+	cout<<"Empate";
+	
+	
+	Sleep(5000);
+	
+	int u;
+	system("cls");
+	
+	gotoxy(50,10);
+	cout<<"Empate";
+	
+	gotoxy(40,17);
+	cout<<"-Presiona 1 para jugar de nuevo ";
+	gotoxy(40,18);
+	cout<<"-Presiona 2 para regresar al menu ";
+	gotoxy(53,20);
+	cin>>u;
+	
+	
+	if(u==1)
+	{
+		inicio1();
+	}
+	else if (u==2)
+	{
+		main();
+	}
+	else
+	{
+		
+	}
+	
+}
+
+
+void turno3()
+{
+	
+	int mov3,casos=0,coord=0;
+	limite++;
+	
+	if(dif==1)
+	{
+	
+		for(int i=0;i<7;i++)
+		{
+			for(int k=5;k>=0;k--)
+			{
+				//horizontal Yaaaaaaaa
+				
+				if(x[i][k]=='X' & x[i+1][k]=='X' & x[i+2][k]=='X' & x[i+3][k]==' ')
+				{
+					casos++;
+					coord=i+3;
+					
+					
+					
+				}
+				
+				else if(x[i][k]=='X' & x[i+1][k]=='X' & x[i+2][k]==' ' & x[i+3][k]=='X')
+				{
+					casos++;
+					coord=i+2;
+					
+				
+					
+				}
+				
+				else if(x[i][k]=='X' & x[i+1][k]==' ' & x[i+2][k]=='X' & x[i+3][k]=='X')
+				{
+					casos++;
+					coord=i+1;
+					
+					
+					
+				}
+				
+				else if(x[i][k]==' ' & x[i+1][k]=='X' & x[i+2][k]=='X' & x[i+3][k]=='X')
+				{
+					casos++;
+					coord=i;
+					
+				
+					
+				}
+				//Vertical Yaaaaaaaaaaa
+				else if(x[i][k]=='X' & x[i][k-1]=='X' & x[i][k-2]=='X' & x[i][k-3]==' ')
+				{
+					casos++;
+					coord=i;
+					
+					
+					
+				}
+				
+				//diagonal
+				else if(x[i][k]=='X' & x[i+1][k-1]=='X' & x[i+2][k-2]=='X' & x[i+3][k-3]==' ' & x[i+3][k-2]!=' ' )
+				{
+					casos++;
+					coord=i+3;
+					
+					
+				}
+				else if(x[i][k]=='X' & x[i+1][k-1]=='X' & x[i+2][k-2]==' ' & x[i+3][k-3]=='X' & x[i+2][k-1]!=' ' )
+				{
+					casos++;
+					coord=i+2;
+					
+				
+				}
+					else if(x[i][k]=='X' & x[i+1][k-1]==' ' & x[i+2][k-2]=='X' & x[i+3][k-3]=='X' & x[i+1][k]!=' ' )
+				{
+					casos++;
+					coord=i+1;
+					
+				
+				}
+					else if(x[i][k]==' ' & x[i+1][k-1]=='X' & x[i+2][k-2]=='X' & x[i+3][k-3]=='X' & x[i][k+1]!=' ' )
+				{
+					casos++;
+					coord=i;
+					
+					
+				}
+				
+				else if(x[i][k]=='X' & x[i-1][k-1]=='X' & x[i-2][k-2]=='X' & x[i-3][k-3]==' ' & x[i-3][k-2]!=' ' )
+				{
+					casos++;
+					coord=i-3;
+					
+				
+				}
+				else if(x[i][k]=='X' & x[i-1][k-1]=='X' & x[i-2][k-2]==' ' & x[i-3][k-3]=='X' & x[i-2][k-1]!=' ' )
+				{
+					casos++;
+					coord=i-2;
+					
+				
+				}
+				else if(x[i][k]=='X' & x[i-1][k-1]==' ' & x[i-2][k-2]=='X' & x[i-3][k-3]=='X' & x[i-1][k]!=' ' )
+				{
+					casos++;
+					coord=i-1;
+					
+					
+				}
+					else if(x[i][k]==' ' & x[i-1][k-1]=='X' & x[i-2][k-2]=='X' & x[i-3][k-3]=='X' & x[i][k+1]!=' ' )
+				{
+					casos++;
+					coord=i;
+					
+					
+				}
+				else
+				{
+					
+					
+					
+					
+				}
+			}	
+		}
+	}
+	else if(dif==2)
+	{
+		for(int i=0;i<7;i++)
+		{
+			for(int k=5;k>=0;k--)
+			{
+				//Evitar que el otro gane	
+				//horizontal 
+				if(x[3][5]==' ')
+				{
+					casos++;
+					coord=3;
+				}
+				else if(x[3][5]=='X' & x[2][5]==' ')
+				{
+					casos++;
+					coord=2;
+				}
+				else if(x[i][k]=='X' & x[i+1][k]=='X' & x[i+2][k]=='X' & x[i+3][k]==' '  & (x[i+3][k+1]=='X' || x[i+3][k+1]=='O'))
+				{
+					casos++;
+					coord=i+3;
+					
+				}	
+				else if(x[i][k]=='X' & x[i+1][k]=='X' & x[i+2][k]==' ' & x[i+3][k]=='X' & (x[i+2][k+1]=='X' || x[i+2][k+1]=='O'))
+				{
+					casos++;
+					coord=i+2;
+					
+					
+				}
+				
+				else if(x[i][k]=='X' & x[i+1][k]==' ' & x[i+2][k]=='X' & x[i+3][k]=='X' & (x[i+1][k+1]!='X' || x[i+1][k+1]!='O'))
+				{
+					casos++;
+					coord=i+1;
+					
+					
+					
+				}
+				
+				else if(x[i][k]==' ' & x[i+1][k]=='X' & x[i+2][k]=='X' & x[i+3][k]=='X'  & (x[i][k+1]!='X' || x[i][k+1]!='O'))
+				{
+					casos++;
+					coord=i;
+					
+					
+					
+				}
+				//Vertical Yaaaaaaaaaaa
+				else if(x[i][k]=='X' & x[i][k-1]=='X' & x[i][k-2]=='X' & x[i][k-3]==' ')
+				{
+					casos++;
+					coord=i;
+					
+					
+				}
+				
+				//diagonal
+				else if(x[i][k]=='X' & x[i+1][k-1]=='X' & x[i+2][k-2]=='X' & x[i+3][k-3]==' ' & x[i+3][k-2]!=' ' )
+				{
+					casos++;
+					coord=i+3;
+					
+				
+				}
+				else if(x[i][k]=='X' & x[i+1][k-1]=='X' & x[i+2][k-2]==' ' & x[i+3][k-3]=='X' & x[i+2][k-1]!=' ' )
+				{
+					casos++;
+					coord=i+2;
+					
+				
+				}
+					else if(x[i][k]=='X' & x[i+1][k-1]==' ' & x[i+2][k-2]=='X' & x[i+3][k-3]=='X' & x[i+1][k]!=' ' )
+				{
+					casos++;
+					coord=i+1;
+					
+				
+				}
+					else if(x[i][k]==' ' & x[i+1][k-1]=='X' & x[i+2][k-2]=='X' & x[i+3][k-3]=='X' & x[i][k+1]!=' ' )
+				{
+					casos++;
+					coord=i;
+					
+				
+				}
+				
+				else if(x[i][k]=='X' & x[i-1][k-1]=='X' & x[i-2][k-2]=='X' & x[i-3][k-3]==' ' & x[i-3][k-2]!=' ' )
+				{
+					casos++;
+					coord=i-3;
+					
+				
+				}
+				else if(x[i][k]=='X' & x[i-1][k-1]=='X' & x[i-2][k-2]==' ' & x[i-3][k-3]=='X' & x[i-2][k-1]!=' ' )
+				{
+					casos++;
+					coord=i-2;
+					
+				
+				}
+				else if(x[i][k]=='X' & x[i-1][k-1]==' ' & x[i-2][k-2]=='X' & x[i-3][k-3]=='X' & x[i-1][k]!=' ' )
+				{
+					casos++;
+					coord=i-1;
+					
+				
+				}
+					else if(x[i][k]==' ' & x[i-1][k-1]=='X' & x[i-2][k-2]=='X' & x[i-3][k-3]=='X' & x[i][k+1]!=' ' )
+				{
+					casos++;
+					coord=i;
+					
+				
+				}
+				
+				//darse cuanta cuando puede ganar
+				//horizontal 
+				else if(x[i][k]=='O' & x[i+1][k]=='O' & x[i+2][k]=='O' & x[i+3][k]==' ' & (x[i+3][k+1]=='X' || x[i+3][k+1]=='O'))
+				{
+					casos++;
+					coord=i+3;
+					
+				
+					
+				}
+				
+				else if(x[i][k]=='O' & x[i+1][k]=='O' & x[i+2][k]==' ' & x[i+3][k]=='O' & (x[i+2][k+1]=='X' || x[i+2][k+1]=='O') )
+				{
+					casos++;
+					coord=i+2;
+					
+				
+					
+				}
+				
+				else if(x[i][k]=='O' & x[i+1][k]==' ' & x[i+2][k]=='O' & x[i+3][k]=='O' & (x[i+1][k+1]=='X' || x[i+1][k+1]=='O'))
+				{
+					casos++;
+					coord=i+1;
+					
+				
+					
+				}
+				
+				else if(x[i][k]==' ' & x[i+1][k]=='O' & x[i+2][k]=='O' & x[i+3][k]=='O' & (x[i][k+1]=='X' || x[i][k+1]=='O'))
+				{
+					casos++;
+					coord=i;
+					
+				
+					
+				}
+				//Vertical Yaaaaaaaaaaa
+				else if(x[i][k]=='O' & x[i][k-1]=='O' & x[i][k-2]=='O' & x[i][k-3]==' ')
+				{
+					casos++;
+					coord=i;
+					
+					
+				
+				}
+				
+				//diagonal
+				else if(x[i][k]=='O' & x[i+1][k-1]=='O' & x[i+2][k-2]=='O' & x[i+3][k-3]==' ' & (x[i+3][k-2]!='X' || x[i+3][k-2]!='O' ))
+				{
+					casos++;
+					coord=i+3;
+					
+				
+				}
+				else if(x[i][k]=='O' & x[i+1][k-1]=='O' & x[i+2][k-2]==' ' & x[i+3][k-3]=='O' & (x[i+2][k-1]!='X' || x[i+2][k-1]!='O' ))
+				{
+					casos++;
+					coord=i+2;
+					
+					
+				}
+					else if(x[i][k]=='O' & x[i+1][k-1]==' ' & x[i+2][k-2]=='O' & x[i+3][k-3]=='O' & (x[i+1][k]!='X'|| x[i+1][k]!='O' ))
+				{
+					casos++;
+					coord=i+1;
+					
+					
+				}
+					else if(x[i][k]==' ' & x[i+1][k-1]=='O' & x[i+2][k-2]=='O' & x[i+3][k-3]=='O' & (x[i][k+1]!='X' || x[i][k+1]!='O' ))
+				{
+					casos++;
+					coord=i;
+					
+				
+				}
+				
+				else if(x[i][k]=='O' & x[i-1][k-1]=='O' & x[i-2][k-2]=='O' & x[i-3][k-3]==' ' & (x[i-3][k-2]!='X' || x[i-3][k-2]!='O'))
+				{
+					casos++;
+					coord=i-3;
+					
+					
+				}
+				else if(x[i][k]=='O' & x[i-1][k-1]=='O' & x[i-2][k-2]==' ' & x[i-3][k-3]=='O' & (x[i-2][k-1]!='X'|| x[i-2][k-1]!='O' ))
+				{
+					casos++;
+					coord=i-2;
+					
+					
+				}
+				else if(x[i][k]=='O' & x[i-1][k-1]==' ' & x[i-2][k-2]=='O' & x[i-3][k-3]=='O' & (x[i-1][k]!='X' || x[i-1][k]!='O' ))
+				{
+					casos++;
+					coord=i-1;
+					
+					
+				}
+				else if(x[i][k]==' ' & x[i-1][k-1]=='O' & x[i-2][k-2]=='O' & x[i-3][k-3]=='O' & (x[i][k+1]!='X'|| x[i][k+1]!='O'  ))
+				{
+					casos++;
+					coord=i;
+					
+					
+				}
+				else
+				{
+				 	//Sera random	
+					
+				}
+			}	
+		}
+		
+			
+	}
+	else if(dif==0)
+	{
+		casos=0;
+	}	
+	else
+	{
+	}
+			if(casos!=0)
+			{
+				mov3=coord;	
+			}
+			else
+			{
+				mov3 = rand() % 6 ;
+			}
+		
+	
+	gotoxy(25,2);
+	cout<<" 0   1   2   3   4   5   6";
+	
+	
+	for (int i=0;i<7;i++)
+	{
+		
+		for(int k=0;k<6;k++)
+		{		//Horizontal-Vertical
+			gotoxy(25+(i*4) , 3+(k*3));
+			
+			
+		if(x[i][k]==' ')
+		{
+			
+		cout<<"["<< x[i][k] <<"] \t";
+		
+		}
+		else if(x[i][k]=='X')
+		{
+		cambiarcolor(6);
+		cout<<"["<< x[i][k] <<"] \t";	
+		cambiarcolor(7);
+		}
+		else if(x[i][k]=='O')
+		{
+		cambiarcolor(4);
+		cout<<"["<< x[i][k] <<"] \t";	
+		cambiarcolor(7);
+		}
+		else
+		{
+		}
+		
+		
+		}
+		cout<<endl;
+	}
+	
+	
+		gotoxy(27,24);
+		cout<<"Movimiento Jugador 2:"<<mov3;
+		gotoxy(48,24);
+		
+		
+		
+		//Checar que sea 0-6
+		
+		for(int p=0;p<7;p++)
+		{   
+		
+			if((mov3)==p)
+			{
+				for(int w=5;w>=0;w--)
+				{
+					if(x[p][w]==' ')
+					{
+						x[p][w]='O';
+						revisar2();
+					}
+					else
+					{
+						
+					}
+					
+					
+				}
+			}
+			
+			else
+			{
+				
+			}
+			
+		}
+	
+	turno1();
+}
